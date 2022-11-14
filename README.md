@@ -107,7 +107,48 @@ Untuk melakukan pengecekan kita ketik ```ip a``` pada client yang berada di swit
 
 ### 4. Client yang melalui Switch3 mendapatkan range IP dari [prefix IP].3.10 - [prefix IP].3.30 dan [prefix IP].3.60 - [prefix IP].3.85 
 
+Cofigurasi Pada Client Pada KemonoPark dan NewstonCastle
+```
+auto eth0
+iface eth0 inet dhcp
+```
+Cofigurasi Pada Client Pada Eden
+```
+auto eth0
+iface eth0 inet dhcp
+hwaddress ether 82:ca:27:cc:c1:74
+```
+Setelah ini pada Westalis kita ketikkan kembali  ```/etc/dhcp/dhcpd.conf ``` dan kita tambahkan script di bawah
+```subnet 192.204.3.0 netmask 255.255.255.0 {
+    range 192.204.3.10 192.204.3.30;
+    range 192.204.3.60 192.204.3.85;
+    option routers 192.204.3.1;
+    option broadcast-address 192.204.3.255;
+    option domain-name-servers 192.204.2.2;
+    default-lease-time 600;
+    max-lease-time 6900;
+}
+```
+kemudian kita reset dengan ```service isc-dhcp-server restart```
+Untuk melakukan pengecekan kita ketik ```ip a``` pada client yang berada di switch 3 (Eden,KemonoPark dan NewstonCastle)
+
 ### 5. Client mendapatkan DNS dari WISE dan client dapat terhubung dengan internet melalui DNS tersebut.
+Karena setiap Client mendapatkan DNS dari WISE dan Client bisa terhubung internet melalui DNS tersebut, maka di butuhkan configurasi pada 
+```s/etc/dhcp/dhcpd.conf``` di westalis, lalu kita tambahkan ```option domain-name-servers 192.204.2.2;```
+
+Kemudian kita lakukan setup pada Wise dengan ```/etc/bind/named.conf.options``` kemudian kita tuliskan 
+```options {
+        directory \"/var/cache/bind\";
+ forwarders {
+                192.168.122.1;
+        };
+
+        allow-query{any;};
+ auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+};
+```
+Lalu bisa di lakukan ping google.com pada setiap client.
 
 ### 6. Lama waktu DHCP server meminjamkan alamat IP kepada Client yang melalui Switch1 selama 5 menit sedangkan pada client yang melalui Switch3 selama 10 menit. Dengan waktu maksimal yang dialokasikan untuk peminjaman alamat IP selama 115 menit.	
 
