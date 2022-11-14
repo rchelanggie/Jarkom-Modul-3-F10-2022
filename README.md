@@ -6,8 +6,11 @@ Rachel Anggieuli AP   5025201263 <br/>
 Cholid Junoto         5025201038 <br/>
 
 ## Laporan Resmi Modul 3 F10 2022
+##Nomor 1##
+Loid bersama Franky berencana membuat peta tersebut dengan kriteria WISE sebagai DNS Server, Westalis sebagai DHCP Server, Berlint sebagai Proxy Server
 
-### 1. Loid bersama Franky berencana membuat peta tersebut dengan kriteria WISE sebagai DNS Server, Westalis sebagai DHCP Server, Berlint sebagai Proxy Server
+#Membuat Topology#
+![Screenshot (1454)](https://user-images.githubusercontent.com/87630117/201686576-785fceb0-6270-4f86-bead-5c364d29522b.png)
 
 ### 2. Ostania sebagai DHCP Relay (2). Loid dan Franky menyusun peta tersebut dengan hati-hati dan teliti.
 
